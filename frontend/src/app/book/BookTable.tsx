@@ -33,12 +33,12 @@ export default function BookTable({
         dataSource={books}
         columns={[
           {
-            title: "📚 Гарчиг",
+            title: "📘 Гарчиг",
             dataIndex: "title",
-            render: (text: string) => <strong>{text || "xoxo"}</strong>,
+            render: (text: string) => <strong>{text || "N/A"}</strong>,
           },
           { title: "✍️ Зохиогч", dataIndex: "author" },
-          { title: "📅 Он", dataIndex: "publishYear" },
+          { title: "📅 Хэвлэгдсэн он", dataIndex: "publishYear" },
           {
             title: "⚙️ Үйлдэл",
             render: (record: BookType) => (
@@ -74,7 +74,7 @@ export default function BookTable({
         onClick={handlePenRedirect}
         style={{ marginTop: 16 }}
       >
-        Pen руу шилжих
+        Pen рүү шилжих
       </Button>
     </div>
   );

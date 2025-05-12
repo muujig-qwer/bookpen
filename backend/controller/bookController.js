@@ -3,15 +3,15 @@ import { Book } from '../models/bookModel.js';
 // Ном бүртгэх
 export const createBook = async (req, res) => {
   try {
-    const { title, author, publishYear, description } = req.body;
+    const { title, author, publishYear } = req.body;
 
-    if (!title || !author || !publishYear || !description) {
+    if (!title || !author || !publishYear) {
       return res.status(400).send({
         message: 'Бүх талбарыг бөглөнө үү (гарчиг, зохиогч, он, тайлбар)',
       });
     }
 
-    const newBook = { title, author, publishYear, description };
+    const newBook = { title, author, publishYear };
     const book = await Book.create(newBook);
 
     return res.status(201).json({
@@ -58,11 +58,11 @@ export const getBookById = async (req, res) => {
 // Ном шинэчлэх
 export const updateBook = async (req, res) => {
   try {
-    const { title, author, publishYear, description } = req.body;
+    const { title, author, publishYear, } = req.body;
 
-    if (!title || !author || !publishYear || !description) {
+    if (!title || !author || !publishYear) {
       return res.status(400).json({
-        message: 'Бүх талбарыг бөглөнө үү (гарчиг, зохиогч, он, тайлбар)',
+        message: 'Бүх талбарыг бөглөнө үү (гарчиг, зохиогч, он)',
       });
     }
 

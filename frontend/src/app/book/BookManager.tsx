@@ -1,6 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Button, message, Modal, ConfigProvider, Form } from "antd";
+import {
+  Button,
+  message,
+  Modal,
+  ConfigProvider,
+  Form,
+} from "antd";
 import BookForm from "./BookForm";
 import { BookType, PagModel } from "../../../types/book";
 import {
@@ -63,10 +69,9 @@ export default function BookManager() {
     const values = await form.validateFields();
     if (editingBook) {
       await updateBook(editingBook._id!, values);
-      message.success("Амжилттай шинэчлэгдлээ");
+      message.info("Амжилттай хадгалагдлаа");
     } else {
       await createBook(values);
-      message.success("Амжилттай бүртгэгдлээ");
     }
     setIsModalOpen(false);
     fetchBooks(pagination.current, pagination.pageSize);
@@ -74,17 +79,15 @@ export default function BookManager() {
 
   return (
     <div className="p-5">
-      <div className="flex gap-2 mb-4">
+      <div className="flex gap-2">
         <Button
           type="primary"
           onClick={handleAdd}
-          className="bg-blue-600 hover:bg-blue-700"
+          className="flex mb-4 bg-blue-600 hover:bg-blue-700"
         >
           ➕ Бүртгэх
         </Button>
-        <Button onClick={() => fetchBooks(1, pagination.pageSize)}>
-          Дахин ачааллах
-        </Button>
+        <Button onClick={() => fetchBooks(1, 5)}>Дахин ачааллах</Button>
       </div>
       <ConfigProvider
         theme={{
@@ -110,7 +113,6 @@ export default function BookManager() {
         onOk={handleOk}
         okText={editingBook ? "Хадгалах" : "Нэмэх"}
         cancelText="Цуцлах"
-        width={800}
       >
         <BookForm form={form} />
       </Modal>

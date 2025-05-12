@@ -4,7 +4,7 @@ import mongoose from "mongoose"
 import booksRoute from './routes/bookRouter.js'
 import cors from 'cors'
 import pensRoute from './routes/penRouter.js'
-
+import authRoute from './routes/authRouter.js'
 
 const app = express()
 
@@ -18,6 +18,7 @@ app.get('/', (req, res) =>{
     return res.status(234).send('Welcome to MERN Stack')
 })
 
+app.use("/auth", authRoute);
 app.use('/pens', pensRoute)
 app.use('/books', booksRoute);
 

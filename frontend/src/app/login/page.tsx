@@ -1,21 +1,30 @@
 "use client";
 import { App, Button, Form, Input } from "antd";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const router = useRouter();
   const { message } = App.useApp(); // ← Хамгийн чухал хэсэг
 
-  const onFinish = (values: any) => {
-    const { username, password } = values;
-    if (username === "admin" && password === "1234") {
-      localStorage.setItem("token", "dummyToken123");
-      message.success("Амжилттай нэвтэрлээ"); // ← App.useApp()-оос авсан message
+  const onFinish = async (values: any) => {
+  try {
+    const res = await axios.post("http://localhost:3000/auth/login", values);
+    const { token, role } = res.data;
+    localStorage.setItem("token", token);
+    localStorage.setItem("role", role);
+
+    message.success("Амжилттай нэвтэрлээ");
+    if (role === "book") {
       router.push("/book");
     } else {
-      message.error("Нэвтрэх нэр эсвэл нууц үг буруу байна");
+      router.push("/pen");
     }
-  };
+  } catch {
+    message.error("Нэвтрэх нэр эсвэл нууц үг буруу байна");
+  }
+};
+
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -36,6 +45,10 @@ export default function LoginPage() {
           >
             <Input.Password placeholder="••••••••" />
           </Form.Item>
+          <Button type="link" onClick={() => router.push("/register")}>
+            Шинэ хэрэглэгч үүсгэх
+          </Button>
+
           <Button type="primary" htmlType="submit" block>
             Нэвтрэх
           </Button>

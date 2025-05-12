@@ -1,25 +1,17 @@
 "use client";
 import { Form, Input, InputNumber } from "antd";
-import { useEffect, useState } from "react";
 
-export default function BookForm({ form }: { form: any }) {
-  const [desc, setDesc] = useState("");
+interface Props {
+  form: any;
+}
 
-  useEffect(() => {
-    form.setFieldValue("description", desc);
-  }, [desc]);
-
-  useEffect(() => {
-    const current = form.getFieldValue("description");
-    if (current) setDesc(current);
-  }, [form]);
-
+export default function BookForm({ form }: Props) {
   return (
     <Form form={form} layout="vertical">
       <Form.Item
         name="title"
         label="Гарчиг"
-        rules={[{ required: true, message: "Гарчиг оруулна уу" }]}
+        rules={[{ required: true, message: "Гарчиг оруулна уу!" }]}
       >
         <Input placeholder="Жишээ: Нарны хот" />
       </Form.Item>
@@ -27,7 +19,7 @@ export default function BookForm({ form }: { form: any }) {
       <Form.Item
         name="author"
         label="Зохиогч"
-        rules={[{ required: true, message: "Зохиогчийн нэр оруулна уу" }]}
+        rules={[{ required: true, message: "Зохиогчийн нэр оруулна уу!" }]}
       >
         <Input placeholder="Жишээ: Д.Нацагдорж" />
       </Form.Item>
@@ -36,7 +28,7 @@ export default function BookForm({ form }: { form: any }) {
         name="publishYear"
         label="Хэвлэгдсэн он"
         rules={[
-          { required: true, message: "Он заавал шаардлагатай" },
+          { required: true, message: "Он заавал шаардлагатай!" },
           {
             type: "number",
             min: 1000,
@@ -46,13 +38,6 @@ export default function BookForm({ form }: { form: any }) {
         ]}
       >
         <InputNumber className="w-full" placeholder="Жишээ: 2020" />
-      </Form.Item>
-
-      <Form.Item
-        name="description"
-        label="Тайлбар"
-        rules={[{ required: true, message: "Тайлбар оруулна уу" }]}
-      >
       </Form.Item>
     </Form>
   );
