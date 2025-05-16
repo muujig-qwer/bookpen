@@ -5,26 +5,24 @@ import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { message } = App.useApp(); // ← Хамгийн чухал хэсэг
+  const { message } = App.useApp();
 
   const onFinish = async (values: any) => {
-  try {
-    const res = await axios.post("http://localhost:3000/auth/login", values);
-    const { token, role } = res.data;
-    localStorage.setItem("token", token);
-    localStorage.setItem("role", role);
+    try {
+      const res = await axios.post("http://localhost:3000/auth/login", values);
+      const { username, role } = res.data.user;
+      localStorage.setItem("user", JSON.stringify({ username, role }));
 
-    message.success("Амжилттай нэвтэрлээ");
-    if (role === "book") {
-      router.push("/book");
-    } else {
-      router.push("/pen");
+      message.success("Амжилттай нэвтэрлээ");
+      if (role === "book") {
+        router.push("/book");
+      } else {
+        router.push("/pens");
+      }
+    } catch {
+      message.error("Нэвтрэх нэр эсвэл нууц үг буруу байна");
     }
-  } catch {
-    message.error("Нэвтрэх нэр эсвэл нууц үг буруу байна");
-  }
-};
-
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">

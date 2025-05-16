@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { ConfigProvider, App as AntdApp, App } from "antd"; // ← анхаар
+import { ConfigProvider, App as AntdApp, App } from "antd";
 import "./globals.css";
-
+import Navbar from "../components/navbar"; // ← энд нэм
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,6 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <App>
+          <Navbar /> 
           {children}
         </App>
       </body>

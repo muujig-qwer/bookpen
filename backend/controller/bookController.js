@@ -99,3 +99,13 @@ export const deleteBook = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const uploadBookImage = async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: 'Зураг олдсонгүй' });
+  }
+
+  const imageUrl = `/uploads/${req.file.filename}`;
+  res.status(200).json({ message: 'Зураг амжилттай upload хийгдлээ', imageUrl });
+};
+

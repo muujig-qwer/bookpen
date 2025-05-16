@@ -9,7 +9,9 @@ interface Props {
   onEdit: (book: BookType) => void;
   onDelete: (id: string) => void;
   onChange: (pageInfo: any) => void;
+  onView: (book: BookType) => void;
 }
+
 
 export default function BookTable({
   books,
@@ -18,6 +20,7 @@ export default function BookTable({
   onEdit,
   onDelete,
   onChange,
+  onView
 }: Props) {
   const router = useRouter();
 
@@ -40,25 +43,23 @@ export default function BookTable({
           { title: "✍️ Зохиогч", dataIndex: "author" },
           { title: "📅 Хэвлэгдсэн он", dataIndex: "publishYear" },
           {
-            title: "⚙️ Үйлдэл",
-            render: (record: BookType) => (
-              <Space>
-                <Button type="link" onClick={() => onEdit(record)}>
-                  Засварлах
-                </Button>
-                <Popconfirm
-                  title="Та энэ номыг устгахдаа итгэлтэй байна уу?"
-                  okText="Тийм"
-                  cancelText="Үгүй"
-                  onConfirm={() => onDelete(record._id!)}
-                >
-                  <Button danger type="link">
-                    Устгах
-                  </Button>
-                </Popconfirm>
-              </Space>
-            ),
-          },
+  title: "⚙️ Үйлдэл",
+  render: (record: BookType) => (
+    <Space>
+      <Button onClick={() => onView(record)}>Үзэх</Button>
+      <Button type="link" onClick={() => onEdit(record)}>Засварлах</Button>
+      <Popconfirm
+        title="Та энэ номыг устгахдаа итгэлтэй байна уу?"
+        okText="Тийм"
+        cancelText="Үгүй"
+        onConfirm={() => onDelete(record._id!)}
+      >
+        <Button danger type="link">Устгах</Button>
+      </Popconfirm>
+    </Space>
+  ),
+}
+
         ]}
         rowKey="_id"
         loading={loading}
@@ -76,6 +77,7 @@ export default function BookTable({
       >
         Pen рүү шилжих
       </Button>
+      
     </div>
   );
 }

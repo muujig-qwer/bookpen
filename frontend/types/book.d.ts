@@ -3,10 +3,11 @@ export interface BookType {
   title: string;
   author: string;
   publishYear: number;
+  image?: string;
+  description: string;
 }
   export interface PagModel {
     current: number;
     pageSize: number;
     total: number;
   }
-  
